@@ -40,12 +40,11 @@ class PlayvisionAPI(object):
         # сформировать запрос и отправить его
         return self._send_request_("friends.get", user_id=user_id)
 
-    def friends_get_app_users(self, user_id, project_id):
+    def friends_get_app_users(self, user_id):
         # проверка того, что дали айдишки
         assert isinstance(user_id, (int, long))
-        assert isinstance(project_id, (int, long))
         # сформировать запрос и отправить его
-        return self._send_request_("friends.getAppUsers", user_id=user_id, project_id=project_id)
+        return self._send_request_("friends.getAppUsers", user_id=user_id, project_id=self._project_id)
 
     def wall_get(self, user_id):
         # проверка того, что дали айдишку
@@ -53,23 +52,21 @@ class PlayvisionAPI(object):
         # сформировать запрос и отправить его
         return self._send_request_("wall.get", user_id=user_id)
 
-    def wall_post(self, user_id, project_id, token, message, psid):
+    def wall_post(self, user_id, token, message, psid):
         # проверка того, что дали то, чео надо было
         assert isinstance(user_id, (int, long))
-        assert isinstance(project_id, (int, long))
         assert isinstance(message, str)
         assert isinstance(psid, (int, long))
         assert isinstance(token, str)
-        return self._send_request_("wall.post", user_id=user_id, project_id=project_id,token=token,message=message,psid=psid)
+        return self._send_request_("wall.post", user_id=user_id, project_id=self._project_id,token=token,message=message,psid=psid)
 
-    def secure_set_user_level(self, user_id, project_id, level, psid):
+    def secure_set_user_level(self, user_id, level, psid):
         # проверка того, что дали то, чео надо было
         assert isinstance(user_id, (int, long))
-        assert isinstance(project_id, (int, long))
         assert isinstance(level, (int, long))
         assert isinstance(psid, (int, long))
         current_time = time.time()
-        return self._send_request_("secure.setUserLevel", user_id=user_id, project_id=project_id,level=level,
+        return self._send_request_("secure.setUserLevel", user_id=user_id, project_id=self._project_id,level=level,
                                    time=current_time, psid=psid)
 
     # работа с магазином
